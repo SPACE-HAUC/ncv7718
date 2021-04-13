@@ -130,8 +130,7 @@ NCV7718_RETCODE ncv7718_exec_output(ncv7718 *dev)
     return NCV7718_SUCCESS;
 }
 
-#define UNIT_TEST
-#ifdef UNIT_TEST
+#ifdef NCV_UNIT_TEST
 #include <unistd.h>
 #include <signal.h>
 volatile sig_atomic_t done = 0;
