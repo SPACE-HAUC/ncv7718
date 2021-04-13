@@ -90,12 +90,12 @@ NCV7718_RETCODE ncv7718_exec_output(ncv7718 *dev)
     cmd->hben = dev->out_en;
     cmd->hbcnf = dev->out_conf;
     // transfer once
-    if (spibus_xfer(dev->bus, cmd->buf, sizeof(ncv7718_cmd)) < 0)
+    if (spibus_xfer(dev->bus, &(cmd->data), sizeof(ncv7718_cmd)) < 0)
     {
         eprintf("Could not send command 0x%04X\n", cmd->data);
         return NCV7718_FAILURE;
     }
-    if (spibus_xfer_full(dev->bus, data->buf, sizeof(ncv7718_data), cmd->buf, sizeof(ncv7718_cmd)) < 0)
+    if (spibus_xfer_full(dev->bus, &(data->data), sizeof(ncv7718_data), &(cmd->data), sizeof(ncv7718_cmd)) < 0)
     {
         eprintf("Could not confirm command 0x%04X\n", cmd->data);
         return NCV7718_FAILURE;

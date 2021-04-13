@@ -75,7 +75,6 @@ typedef union
         unsigned char hbsel : 1; ///< half bridge selection (needs to be set to 0)
         unsigned char srr   : 1; ///< status reset register: 1 -> clear all faults and reset
     };
-    char buf[2];
     unsigned short data;
 } ncv7718_cmd;
 
@@ -90,7 +89,6 @@ typedef union
         unsigned char psf  : 1; ///< Power supply failure
         unsigned char ocs  : 1; ///< Overcurrent tripped
     };
-    char buf[2];
     unsigned short data;
 } ncv7718_data;
 #endif
