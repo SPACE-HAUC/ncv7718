@@ -5,7 +5,7 @@
 #include <string.h>
 
 #define eprintf(str, ...)                               \
-    fprintf(stderr, "%s" str "\n", __func__, ##__VA_ARGS__); \
+    fprintf(stderr, "%s: " str "\n", __func__, ##__VA_ARGS__); \
     fflush(stderr);
 
 int ncv7718_init(ncv7718 *dev, int bus, int cs, int gpiocs)
@@ -30,6 +30,7 @@ int ncv7718_init(ncv7718 *dev, int bus, int cs, int gpiocs)
         dev->bus->cs_internal = 1;
     }
     dev->bus->lsb = 0;
+    dev->bus->mode = SPI_MODE_1;
     int status = spibus_init(dev->bus);
     if (status < 0)
     {
@@ -141,7 +142,7 @@ void sighandler(int sig)
 }
 int main(int argc, char *argv[])
 {
-    if (argc != 3 || argc != 4)
+    if (!(argc == 3 || argc == 4))
     {
         printf("Usage: ncv7718 <SPI Bus> <SPI CS> [<Optional GPIO CS>]\n\n");
         return 0;

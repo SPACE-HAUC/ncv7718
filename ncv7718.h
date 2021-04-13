@@ -80,7 +80,7 @@ typedef union
 
 typedef union
 {
-    struct __attribute__((packed))
+    struct
     {
         unsigned char tw   : 1; ///< Thermal warning
         unsigned char hbcr : 6; ///< half bridge 1 configuration reporting (1 -> LS1 off and HS1 on, 0 -> LS1 on and HS1 off)
@@ -88,7 +88,7 @@ typedef union
         unsigned char uld  : 1; ///< Under load detection
         unsigned char psf  : 1; ///< Power supply failure
         unsigned char ocs  : 1; ///< Overcurrent tripped
-    };
+    } __attribute__((packed));
     unsigned short data;
 } ncv7718_data;
 #endif
