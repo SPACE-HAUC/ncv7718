@@ -31,6 +31,7 @@ int ncv7718_init(ncv7718 *dev, int bus, int cs, int gpiocs)
     }
     dev->bus->lsb = 0;
     dev->bus->mode = SPI_MODE_1;
+    dev->bus->bits = 8;
     int status = spibus_init(dev->bus);
     if (status < 0)
     {
