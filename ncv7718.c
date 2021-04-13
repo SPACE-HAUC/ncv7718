@@ -29,7 +29,7 @@ int ncv7718_init(ncv7718 *dev, int bus, int cs, int gpiocs)
         dev->bus->cs_gpio = -1;
         dev->bus->cs_internal = 1;
     }
-    dev->lsb = 0;
+    dev->bus->lsb = 0;
     int status = spibus_init(dev->bus);
     if (status < 0)
     {
@@ -131,6 +131,7 @@ NCV7718_RETCODE ncv7718_exec_output(ncv7718 *dev)
 }
 
 #ifdef NCV_UNIT_TEST
+#include <stdlib.h>
 #include <unistd.h>
 #include <signal.h>
 volatile sig_atomic_t done = 0;
