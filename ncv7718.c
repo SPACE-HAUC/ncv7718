@@ -139,7 +139,7 @@ void sighandler(int sig)
 {
     done = 1;
 }
-int main(int argc, char *argv)
+int main(int argc, char *argv[])
 {
     if (argc != 3 || argc != 4)
     {
