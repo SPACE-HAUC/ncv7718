@@ -20,6 +20,7 @@ int ncv7718_init(ncv7718 *dev, int bus, int cs, int gpiocs)
         eprintf("Fatal error, %p is null in %p for device, exiting", dev->bus, dev);
         return NCV7718_FAILURE;
     }
+    memset(dev->bus, 0x0, sizeof(spibus));
     dev->bus->bus = bus;
     dev->bus->cs = cs;
     if (gpiocs > 0)
