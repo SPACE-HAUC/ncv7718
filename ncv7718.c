@@ -37,6 +37,7 @@ int ncv7718_init(ncv7718 *dev, int bus, int cs, int gpiocs)
     dev->bus->mode = SPI_MODE_1;
     dev->bus->bits = 8;
     dev->bus->speed = 0;
+    dev->bus->sleeplen = 0;
     int status = spibus_init(dev->bus);
     if (status < 0)
     {
@@ -146,10 +147,13 @@ NCV7718_RETCODE ncv7718_exec_output(ncv7718 *dev)
         eprintf("Under load detection");
         return NCV7718_UNDER_LOAD;
     }
+#ifdef NCV7718_DEBUG
+    eprintf("Command: 0x%04x | Result: 0x%04x", cmd->data, data->data);
+#endif
     return NCV7718_SUCCESS;
 }
 
-#ifdef NCV_UNIT_TEST
+#ifdef NCV7718_UNIT_TEST
 #include <stdlib.h>
 #include <unistd.h>
 #include <signal.h>

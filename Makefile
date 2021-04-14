@@ -1,6 +1,6 @@
 CC=gcc
 RM=rm -vrf
-CFLAGS= -O2 -I ./ -I include/ -I drivers/ -DNCV_UNIT_TEST 
+CFLAGS= -O2 -I ./ -I include/ -I drivers/ -DNCV7718_UNIT_TEST -DNCV7718_DEBUG
 
 TARGET=ncv7718.out
 
