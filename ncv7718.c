@@ -23,11 +23,14 @@ int ncv7718_init(ncv7718 *dev, int bus, int cs, int gpiocs)
     dev->bus->bus = bus;
     dev->bus->cs = cs;
     if (gpiocs > 0)
+    {
         dev->bus->cs_gpio = gpiocs;
+        dev->bus->cs_internal = CS_EXTERNAL;
+    }
     else
     {
         dev->bus->cs_gpio = -1;
-        dev->bus->cs_internal = 1;
+        dev->bus->cs_internal = CS_INTERNAL;
     }
     dev->bus->lsb = 0;
     dev->bus->mode = SPI_MODE_1;
@@ -39,7 +42,7 @@ int ncv7718_init(ncv7718 *dev, int bus, int cs, int gpiocs)
         eprintf("Error %d initializing SPI Bus", status);
         return NCV7718_FAILURE;
     }
-    return NCV7718_SUCCESS;
+    return ncv7718_por(dev);
 }
 
 void ncv7718_destroy(ncv7718 *dev)
@@ -77,6 +80,19 @@ int ncv7718_set_output(ncv7718 *dev, int axis, int direction)
     else if (direction != 0)
     {
         eprintf("Invalid direction: %d", direction);
+        return NCV7718_FAILURE;
+    }
+    return NCV7718_SUCCESS;
+}
+
+NCV7718_RETCODE ncv7718_por(ncv7718 *dev)
+{
+    ncv7718_cmd cmd[1];
+    memset(cmd, 0x0, sizeof(ncv7718_cmd));
+    cmd->srr = 1;
+    if (spibus_xfer(dev->bus, &(cmd->data), sizeof(ncv7718_cmd)) < 0)
+    {
+        eprintf("Could not send command 0x%04X\n", cmd->data);
         return NCV7718_FAILURE;
     }
     return NCV7718_SUCCESS;

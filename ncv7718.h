@@ -57,6 +57,13 @@ int ncv7718_set_output(ncv7718 *dev, int axis, int direction);
  */
 NCV7718_RETCODE ncv7718_exec_output(ncv7718 *dev);
 /**
+ * @brief 
+ * 
+ * @param dev 
+ * @return NCV7718_RETCODE 
+ */
+NCV7718_RETCODE ncv7718_por(ncv7718 *dev);
+/**
  * @brief Turn off outputs and close an ncv7718 device
  * 
  * @param dev ncv7718 struct
