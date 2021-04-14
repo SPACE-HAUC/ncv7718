@@ -54,7 +54,6 @@ void ncv7718_destroy(ncv7718 *dev)
     if (ncv7718_exec_output(dev) < 0)
     {
         eprintf("Could not turn off outputs");
-        return;
     }
     spibus_destroy(dev->bus);
     return;
