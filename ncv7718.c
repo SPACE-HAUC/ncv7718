@@ -56,7 +56,7 @@ void ncv7718_destroy(ncv7718 *dev)
     }
     dev->out_conf = 0x0; // turn off all switches
     dev->out_en = 0x0;   // turn off all enables
-    if (ncv7718_exec_output(dev) < 0)
+    if (ncv7718_por(dev) < 0)
     {
         eprintf("Could not turn off outputs");
     }
@@ -186,7 +186,7 @@ int main(int argc, char *argv[])
         ncv7718_set_output(hb, 0, 1);
         ncv7718_exec_output(hb);
         sleep(1);
-        ncv7718_set_output(hb, 0, -1);
+        ncv7718_set_output(hb, 0, 0);
         ncv7718_exec_output(hb);
         sleep(1);
     }
