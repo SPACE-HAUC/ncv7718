@@ -77,7 +77,8 @@ typedef union
     {
         unsigned char ovlo  : 1; ///< over voltage lockout
         unsigned char hbcnf : 6; ///< half bridge 1 configuration (1 -> LS1 off and HS1 on, 0 -> LS1 on and HS1 off)
-        unsigned char hben  : 6; ///< half bridge 1 enable (1 -> bridge in use, 0 -> bridge not in use)
+        unsigned char hben0 : 1; ///< half bridge 1 enable (1 -> bridge in use, 0 -> bridge not in use)
+        unsigned char hben1 : 5; ///< half bridge 2-6 enable
         unsigned char uldsc : 1; ///< under load detection shutdown
         unsigned char hbsel : 1; ///< half bridge selection (needs to be set to 0)
         unsigned char srr   : 1; ///< status reset register: 1 -> clear all faults and reset
@@ -87,15 +88,16 @@ typedef union
 
 typedef union
 {
-    struct
+    struct __attribute__((packed))
     {
         unsigned char tw   : 1; ///< Thermal warning
         unsigned char hbcr : 6; ///< half bridge 1 configuration reporting (1 -> LS1 off and HS1 on, 0 -> LS1 on and HS1 off)
-        unsigned char hbst : 6; ///< half bridge 1 enable (1 -> bridge in use, 0 -> bridge not in use)
+        unsigned char hbst0: 1; ///< half bridge 1 enable (1 -> bridge in use, 0 -> bridge not in use)
+        unsigned char hbst1: 5; ///< half bridge 2-6 enable
         unsigned char uld  : 1; ///< Under load detection
         unsigned char psf  : 1; ///< Power supply failure
         unsigned char ocs  : 1; ///< Overcurrent tripped
-    } __attribute__((packed));
+    };
     unsigned short data;
 } ncv7718_data;
 #endif

@@ -73,7 +73,6 @@ int ncv7718_set_output(ncv7718 *dev, int axis, int direction)
         return NCV7718_FAILURE;
     }
     axis <<= 1; // double it
-
     dev->out_en |= ((uint8_t)(0x3 << axis)); // enable channels
     dev->out_conf &= ~((uint8_t)(0x3 << axis)); // unset output mode
     if (direction == 1)
@@ -108,7 +107,8 @@ NCV7718_RETCODE ncv7718_exec_output(ncv7718 *dev)
     memset(cmd, 0x0, sizeof(ncv7718_cmd));
     memset(data, 0x0, sizeof(ncv7718_data));
     // write configuration
-    cmd->hben = dev->out_en;
+    cmd->hben0 = dev->out_en & 0x1;
+    cmd->hben1 = (dev->out_en) >> 1;
     cmd->hbcnf = dev->out_conf;
     // transfer once
     if (spibus_xfer(dev->bus, &(cmd->data), sizeof(ncv7718_cmd)) < 0)
