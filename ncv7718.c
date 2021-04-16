@@ -38,6 +38,7 @@ int ncv7718_init(ncv7718 *dev, int bus, int cs, int gpiocs)
     dev->bus->bits = 8;
     dev->bus->speed = 0;
     dev->bus->sleeplen = 0;
+    dev->bus->internal_rotation = true;
     int status = spibus_init(dev->bus);
     if (status < 0)
     {
