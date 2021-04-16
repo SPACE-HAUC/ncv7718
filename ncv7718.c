@@ -45,6 +45,8 @@ int ncv7718_init(ncv7718 *dev, int bus, int cs, int gpiocs)
         eprintf("Error %d initializing SPI Bus", status);
         return NCV7718_FAILURE;
     }
+    dev->out_conf = 0x0; // turn off all switches
+    dev->out_en = 0x0;   // turn off all enables
     return ncv7718_por(dev);
 }
 
@@ -92,6 +94,9 @@ NCV7718_RETCODE ncv7718_por(ncv7718 *dev)
     ncv7718_cmd cmd[1];
     memset(cmd, 0x0, sizeof(ncv7718_cmd));
     cmd->srr = 1;
+#ifdef NCV7718_DEBUG
+    eprintf("Command: 0x%04x", cmd->data);
+#endif
     if (spibus_xfer(dev->bus, &(cmd->data), sizeof(ncv7718_cmd)) < 0)
     {
         eprintf("Could not send command 0x%04X\n", cmd->data);
