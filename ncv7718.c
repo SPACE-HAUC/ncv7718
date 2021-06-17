@@ -150,7 +150,6 @@ NCV7718_RETCODE ncv7718_exec_output(ncv7718 *dev)
     }
     if (data->uld)
     {
-        eprintf("Under load detection");
         return NCV7718_UNDER_LOAD;
     }
 #ifdef NCV7718_DEBUG
